@@ -17,6 +17,26 @@ app.get('/unblock', function(req, res) {
   res.send('OK');
 });
 
+app.get('/blockgroup/:id', function(req, res) {
+  var groupID = req.params.id;
+  var sql = "update 'group' set 'enabled'=1 where id=" + groupID + ";";
+  console.log(sql);
+  var commandText = 'sudo sqlite3 /etc/pihole/gravity.db "' + sql + '"';
+  console.log(commandText);
+  shell.exec(commandText);
+  res.send('OK');
+});
+
+app.get('/unblockgroup/:id', function(req, res) {
+  var groupID = req.params.id;
+  var sql = "update 'group' set 'enabled'=0 where id=" + groupID + ";";
+  console.log(sql);
+  var commandText = 'sudo sqlite3 /etc/pihole/gravity.db "' + sql + '"';
+  console.log(commandText);
+  shell.exec(commandText);
+  res.send('OK');
+});
+
 app.listen(8080, function () {
   console.log('Server running in port 8080');
 });
