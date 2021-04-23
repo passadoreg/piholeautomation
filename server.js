@@ -24,6 +24,7 @@ app.get('/blockgroup/:id', function(req, res) {
   var commandText = 'sudo sqlite3 /etc/pihole/gravity.db "' + sql + '"';
   console.log(commandText);
   shell.exec(commandText);
+  shell.exec('sudo pihole restartdns reload-lists');
   res.send('OK');
 });
 
@@ -34,6 +35,7 @@ app.get('/unblockgroup/:id', function(req, res) {
   var commandText = 'sudo sqlite3 /etc/pihole/gravity.db "' + sql + '"';
   console.log(commandText);
   shell.exec(commandText);
+  shell.exec('sudo pihole restartdns reload-lists');
   res.send('OK');
 });
 
