@@ -17,6 +17,16 @@ app.get('/unblock', function(req, res) {
   res.send('OK');
 });
 
+app.get('/pushchanges', function(req, res) {
+  shell.exec('/usr/local/bin/pihole-cloudsync/pihole-cloudsync --push');
+  res.send('OK');
+});
+
+app.get('/pullchanges', function(req, res) {
+  shell.exec('/usr/local/bin/pihole-cloudsync/pihole-cloudsync --pull');
+  res.send('OK');
+});
+
 app.get('/blockgroup/:id', function(req, res) {
   var groupID = req.params.id;
   var sql = "update 'group' set 'enabled'=1 where id=" + groupID + ";";
